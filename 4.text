@@ -397,8 +397,289 @@ If you want, I can make a super short 5-line “exam answer version” from this
 
 Do you want me to do that?
 
+A startup wants to deploy its web application in a Docker container on the cloud.
+Tasks:
+• Launch an EC2 instance
+• Install Docker
+• Pull a sample Docker image (e.g., Nginx)
+• Run the container and access it via browser
+Expected Outcome:
+Container deployment on cloud VM
+Q3. A startup wants to deploy its web application in a Docker container on the cloud
+Aim
+To deploy a web application inside a Docker container on a cloud virtual machine (AWS EC2) and access it through a browser.
+
+Step 1: Launch an EC2 Instance
+Login to AWS Management Console
+Go to EC2 → Launch Instance
+Choose Ubuntu
+Select instance type: t2.micro
+Configure security group:
+Allow SSH (22)
+Allow HTTP (80)
+Create or select a key pair
+Launch the EC2 instance
 
 
+Step 1: Connect to Ubuntu EC2 Instance
 
-No file chosenNo file chosen
-ChatGPT can make mistakes. Check important info. See Cookie Preferences.
+ssh -i key.pem ubuntu@<public-ip>
+
+Step 2: Update the System
+
+sudo apt update -y
+sudo apt upgrade -y
+
+Step 3: Install Required Packages
+
+sudo apt install -y ca-certificates curl gnupg lsb-release
+
+Step 4: Install Docker on Ubuntu
+
+sudo apt install docker.io -y
+
+Step 5: Start and Enable Docker
+
+sudo systemctl start docker
+sudo systemctl enable docker
+
+Step 6: Verify Docker Installation
+
+docker --version
+
+Step 7: Add Ubuntu User to Docker Group
+
+sudo usermod -aG docker ubuntu
+👉 Logout and login again after this step.
+
+Step 8: Check Docker Status
+
+sudo systemctl status docker
+
+Step 9: Pull a Sample Docker Image (Nginx)
+
+docker pull nginx
+
+Step 10: Run Docker Container
+
+docker run -d -p 80:80 --name nginx-container nginx
+
+Step 11: Verify Running Containers
+
+docker ps
+
+Step 12: Allow HTTP Traffic in Firewall (If enabled)
+
+sudo ufw allow 80
+sudo ufw reload
+
+Step 13: Access Application via Browser
+Open browser and enter:
+
+http://<public-ip>
+Nginx welcome page will be displayed.
+
+Expected Outcome
+Docker successfully installed on Ubuntu
+Nginx container runs successfully
+Web application accessible via browser
+
+A companies want to automate build and packaging of its Employee Management application.
+Tasks:
+1. Push application code to GitHub.
+2. Configure GitHub Actions to:
+Build the application
+• Create a Docker image
+3. Verify that the pipeline runs successfully.
+Expected Outcome:
+• Basic DevOps pipeline
+Automated build and container creation
+Q4. Automate build and packaging of Employee Management application using GitHub Actions
+
+Aim
+To automate the build process and create a Docker image for an Employee Management application using GitHub Actions CI/CD pipeline.
+
+Step 1: Push Application Code to GitHub
+Create a GitHub repository (e.g., employee-management-app)
+Add application source code
+Add a Dockerfile to the project
+Push the code to GitHub
+
+git init
+git add .
+git commit -m "Initial commit"
+git branch -M main
+git remote add origin https://github.com/user/employee-management-app.git
+git push -u origin main
+
+Step 2: Create Dockerfile
+Example Dockerfile:
+
+FROM openjdk:17
+WORKDIR /app
+COPY . .
+CMD ["java", "-jar", "employee.jar"]
+(Adjust based on application type)
+
+Step 3: Configure GitHub Actions Workflow
+Inside repository, create directory:
+
+.github/workflows/
+Create file:
+
+ci-cd.yml
+
+Step 4: GitHub Actions Workflow File
+
+name: Employee App CI/CD Pipeline
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout source code
+        uses: actions/checkout@v4
+
+      - name: Set up Docker
+        uses: docker/setup-buildx-action@v3
+
+      - name: Build Docker Image
+        run: docker build -t employee-app .
+
+      - name: Verify Docker Image
+        run: docker images
+
+Step 5: Build the Application
+GitHub Actions automatically:
+Fetches source code
+Builds the application
+Creates Docker image
+No manual intervention required.
+
+Step 6: Verify Pipeline Execution
+Go to GitHub → Repository → Actions
+Check workflow status
+Green tick ✔ indicates successful execution
+
+Expected Outcome
+Application code is automatically built
+Docker image is created successfully
+CI pipeline runs on every push to GitHub
+
+Advantages
+Automated build process
+Faster deployments
+Reduced manual errors
+Continuous Integration achieved
+
+Conclusion
+Thus, GitHub Actions is successfully used to automate the build and Docker image creation for the Employee Management application, achieving a basic DevOps CI pipeline.
+A college department wants to host its website using Docker instead of traditional installation.
+Tasks:
+• Create a Dockerfile for a static website
+• Build Docker image locally
+• Push image to EC2
+• Run container and verify output
+Expected Outeome:
+Docker image creation and cloud hosting
+Q3. Host a College Department Website using Docker on Ubuntu
+Aim
+To host a static website using Docker instead of traditional installation by creating a Docker image and deploying it on an EC2 Ubuntu instance.
+
+Step 1: Launch Ubuntu EC2 Instance
+Launch Ubuntu 22.04 LTS
+Allow ports:
+SSH → 22
+HTTP → 80
+
+Step 2: Connect to Ubuntu EC2
+
+ssh -i key.pem ubuntu@<public-ip>
+
+Step 3: Update System
+
+sudo apt update -y
+sudo apt upgrade -y
+
+Step 4: Install Docker on Ubuntu
+
+sudo apt install docker.io -y
+
+Step 5: Start & Enable Docker
+
+sudo systemctl start docker
+sudo systemctl enable docker
+
+Step 6: Verify Docker Installation
+
+docker --version
+
+Step 7: Add User to Docker Group
+
+sudo usermod -aG docker ubuntu
+Logout and login again.
+
+Step 8: Create Project Directory
+
+mkdir static-website
+cd static-website
+
+Step 9: Create Static Website File
+
+nano index.html
+
+<html>
+<head>
+<title>College Department</title>
+</head>
+<body>
+<h1>Welcome to MCA Department</h1>
+<p>Docker based website hosting</p>
+</body>
+</html>
+Save and exit.
+
+Step 10: Create Dockerfile
+
+nano Dockerfile
+
+FROM nginx:alpine
+COPY index.html /usr/share/nginx/html/index.html
+Save and exit.
+
+Step 11: Build Docker Image Locally
+
+docker build -t college-website .
+
+Step 12: Verify Docker Image
+
+docker images
+
+Step 13: Run Docker Container
+
+docker run -d -p 80:80 --name college-container college-website
+
+Step 14: Verify Running Container
+
+docker ps
+
+Step 15: Access Website via Browser
+Open browser:
+
+http://<public-ip>
+Static website will be displayed.
+
+Expected Outcome
+Docker image created successfully
+Static website hosted inside Docker container
+Website accessible through browser
+Cloud hosting achieved using Docker
+
+Conclusion
+Thus, the college department website is successfully hosted using Docker on an Ubuntu EC2 instance, avoiding traditional installation methods.
