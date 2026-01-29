@@ -397,6 +397,8 @@ If you want, I can make a super short 5-line “exam answer version” from this
 
 Do you want me to do that?
 
+
+
 A startup wants to deploy its web application in a Docker container on the cloud.
 Tasks:
 • Launch an EC2 instance
@@ -405,6 +407,7 @@ Tasks:
 • Run the container and access it via browser
 Expected Outcome:
 Container deployment on cloud VM
+
 Q3. A startup wants to deploy its web application in a Docker container on the cloud
 Aim
 To deploy a web application inside a Docker container on a cloud virtual machine (AWS EC2) and access it through a browser.
@@ -580,6 +583,8 @@ Continuous Integration achieved
 
 Conclusion
 Thus, GitHub Actions is successfully used to automate the build and Docker image creation for the Employee Management application, achieving a basic DevOps CI pipeline.
+
+
 A college department wants to host its website using Docker instead of traditional installation.
 Tasks:
 • Create a Dockerfile for a static website
@@ -683,3 +688,12 @@ Cloud hosting achieved using Docker
 
 Conclusion
 Thus, the college department website is successfully hosted using Docker on an Ubuntu EC2 instance, avoiding traditional installation methods.
+
+Or:
+sudo apt update
+sudo apt install docker.io -y
+sudo systemctl start docker
+sudo systemctl enable docker
+ 
+sudo docker pull nginx
+sudo docker run -d -p 80:80 nginx
